@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Apr 30 21:47:36 2020
+
+@author: Weike Sun (vickysun@mit.edu/weike.sun93@gmail.com)
+"""
+
+import numpy as np
+
+
+import matplotlib as mpl
+mpl.style.use('default')
+
+import ALVEN
+
+import warnings
+warnings.filterwarnings("ignore")
+
+
+
+
+#Load data
+Data = np.loadtxt('evaporator.txt')     
+X = Data[:,0:3]
+y = Data[:,3].reshape(-1,1)
+
+
+X_test = X[-2000:]
+y_test = y[-2000:]
+X = X[:2000]
+y = y[:2000]
+
+
+#model fitting
+DALVEN,_,_,_,_,_,_,retain_index,_ =ALVEN.DALVEN_fitting(X, y, X_test, y_test, 2, 0.1, 1, 2, alpha_num = 10, cv= False, max_iter = 10000,tol = 1e-4, selection = 'p_value', select_value = 0.15, trans_type = 'auto')
+
+#kstep_prediction
+ALVEN.DALVEN_testing_kstep(X, y, X_test, y_test, DALVEN, retain_index, 1, 2, k_step =2, tol = 1e-4, trans_type = 'auto', plot = False, round_number = '')
+#note the final returns from ALVEN is scaled according to training data
+
+
