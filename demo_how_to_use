@@ -7,7 +7,7 @@ Created on Thu Apr 30 21:47:36 2020
 
 import numpy as np
 
-
+import matplotlib.style
 import matplotlib as mpl
 mpl.style.use('default')
 
@@ -37,5 +37,4 @@ DALVEN,_,_,_,_,_,_,retain_index,_ =ALVEN.DALVEN_fitting(X, y, X_test, y_test, 2,
 #kstep_prediction
 ALVEN.DALVEN_testing_kstep(X, y, X_test, y_test, DALVEN, retain_index, 1, 2, k_step =2, tol = 1e-4, trans_type = 'auto', plot = False, round_number = '')
 #note the final returns from ALVEN is scaled according to training data
-
 
